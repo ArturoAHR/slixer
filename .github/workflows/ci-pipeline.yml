@@ -22,7 +22,7 @@ jobs:
           pipenv install --dev
       - name: Lint with flake8
         run: |
-          invoke lint
+          pipenv run invoke lint
       - name: Run tests
         run: |
-          invoke test
+          pipenv run invoke test
