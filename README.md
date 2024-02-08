@@ -14,7 +14,7 @@ Make sure you have Pipenv installed and are in a virtual environment with:
 
 After you're inside a virtual environment, you can install the dependencies needed for development with:
 
-```invoke install```
+```pipenv install --dev```
 
 To build an executable you may use:
 
