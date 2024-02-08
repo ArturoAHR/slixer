@@ -13,4 +13,4 @@ def test(c):
 
 @task
 def lint(c):
-    c.run("lint")
+    c.run("flake8")
