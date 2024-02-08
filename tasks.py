@@ -7,3 +7,7 @@ def build(c):
 @task
 def install(c):
   c.run("pipenv install --dev")
+  
+@task
+def test(c):
+  c.run("pytest")
