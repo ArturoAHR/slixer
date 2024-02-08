@@ -1,7 +1,7 @@
 from invoke import task
 
 @task
-def compile(c):
+def build(c):
   c.run("pyinstaller --onefile main.py")
   
 @task
