@@ -21,3 +21,13 @@ To build an executable you may use:
 ```invoke build```
 
 The executable will be generated in the `dist` directory.
+
+## Other Development Commands
+
+```invoke lint```
+
+Lints the project to find issues.
+
+```invoke lint --fix```
+
+Fixes any lint issues the Black formatter can solve.
