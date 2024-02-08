@@ -1,0 +1,28 @@
+name: CI Pipeline
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+jobs:
+  Quality-Checks:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.10
+      - name: Setup environment
+        run: |
+          pip install pipenv
+          pipenv install --dev
+      - name: Lint with flake8
+        run: |
+          invoke lint
+      - name: Run tests
+        run: |
+          invoke test
