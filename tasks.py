@@ -2,7 +2,7 @@ from invoke import task
 
 @task
 def build(c):
-  c.run("pyinstaller --onefile main.py")
+  c.run("pyinstaller --onefile --name slixer.exe main.py")
   
 @task
 def install(c):
