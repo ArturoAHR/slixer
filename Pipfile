@@ -8,6 +8,7 @@ name = "pypi"
 [dev-packages]
 pyinstaller = "*"
 invoke = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.10"
