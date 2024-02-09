@@ -21,7 +21,10 @@ def main():
     args = parser.parse_args()
 
     if hasattr(args, "func"):
-        args.func(args)
+        try:
+            args.func(args)
+        except Exception as e:
+            print(f"Error: {e}")
     else:
         parser.print_help()
 
