@@ -9,3 +9,7 @@ def slixer(args: argparse.Namespace):
 
     if not timestamps_file_path.validate(args.timestamps_file_path):
         raise FileNotFoundError("Timestamps file not found")
+
+    timestamps = timestamps_file_path.extract_timestamps(
+        args.timestamps_file_path
+    )
