@@ -13,8 +13,9 @@ def main():
     parser.add_argument(
         "-t",
         "--timestamps-file",
-        dest="timestamp_file_path",
+        dest="timestamps_file_path",
         help="Path to text file with timestamps",
+        required=True,
     )
 
     args = parser.parse_args()
