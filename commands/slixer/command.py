@@ -13,3 +13,5 @@ def slixer(args: argparse.Namespace):
     timestamps = timestamps_file_path.extract_timestamps(
         args.timestamps_file_path
     )
+
+    audio_file_path.split_audio_file(args.audio_file_path, timestamps)

@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 argparse = "*"
+pydub = "*"
 
 [dev-packages]
 pyinstaller = "*"
