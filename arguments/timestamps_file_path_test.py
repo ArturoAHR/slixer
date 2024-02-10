@@ -1,5 +1,10 @@
-from unittest.mock import patch
-from arguments.timestamps_file_path import validate
+from unittest.mock import mock_open, patch
+from arguments.timestamps_file_path import validate, extract_timestamps
+
+mocked_timestamps_file_contents = """00:00:00 Song 1
+00:03:00 Song 2
+00:06:00 Song 3
+"""
 
 
 @patch("utils.file.verify_mime_type", return_value=True)
@@ -30,3 +35,19 @@ def test_validate_when_file_exists_but_its_not_text(
     assert not validate("text.txt")
     assert mocked_file_path_exists.called
     assert mocked_verify_mime_type.called
+
+
+def test_timestamp_extraction():
+    with patch(
+        "builtins.open", mock_open(read_data=mocked_timestamps_file_contents)
+    ) as mocked_open:
+        timestamps = extract_timestamps("/fake/path/timestamps.txt")
+
+        expected_timestamps = [
+            {"timestamp": (0, 0, 0), "song_title": "Song 1"},
+            {"timestamp": (0, 3, 0), "song_title": "Song 2"},
+            {"timestamp": (0, 6, 0), "song_title": "Song 3"},
+        ]
+
+        assert timestamps == expected_timestamps
+        mocked_open.assert_called_with("/fake/path/timestamps.txt", "r")
