@@ -8,14 +8,9 @@ def split_audio_file(audio_file_path: str, timestamps: list):
     audio = AudioSegment.from_file(audio_file_path)
 
     for index in range(len(timestamps)):
-
         timestamp = timestamps[index]
         next_timestamp = (
             timestamps[index + 1] if index + 1 < len(timestamps) else None
-        )
-
-        next_timestamp_start_time_ms = time.convert_to_ms(
-            next_timestamp["start_time"]
         )
 
         print(
@@ -23,13 +18,15 @@ def split_audio_file(audio_file_path: str, timestamps: list):
             f"Slicing \"{timestamp['song_title']}\""
         )
 
+        next_timestamp_start_time_ms = len(audio)
+
+        if next_timestamp is not None:
+            next_timestamp_start_time_ms = time.convert_to_ms(
+                next_timestamp["start_time"]
+            )
+
         start_time = time.convert_to_ms(timestamp["start_time"])
-        end_time = (
-            len(audio)
-            if next_timestamp is None
-            or next_timestamp_start_time_ms >= len(audio)
-            else next_timestamp_start_time_ms
-        )
+        end_time = min(len(audio), next_timestamp_start_time_ms)
 
         if start_time > len(audio):
             raise ValueError(
