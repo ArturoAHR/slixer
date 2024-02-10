@@ -35,11 +35,11 @@ def extract_timestamps(timestamps_file_path: str) -> list:
 
             timestamps.append(
                 {
-                    "timestamp": (hours, minutes, seconds),
+                    "start_time": (hours, minutes, seconds),
                     "song_title": song_title,
                 }
             )
 
-    timestamps.sort(key=lambda x: time.convert_to_ms(x["timestamp"]))
+    timestamps.sort(key=lambda x: time.convert_to_ms(x["start_time"]))
 
     return timestamps

@@ -44,9 +44,9 @@ def test_timestamp_extraction():
         timestamps = extract_timestamps("/fake/path/timestamps.txt")
 
         expected_timestamps = [
-            {"timestamp": (0, 0, 0), "song_title": "Song 1"},
-            {"timestamp": (0, 3, 0), "song_title": "Song 2"},
-            {"timestamp": (0, 6, 0), "song_title": "Song 3"},
+            {"start_time": (0, 0, 0), "song_title": "Song 1"},
+            {"start_time": (0, 3, 0), "song_title": "Song 2"},
+            {"start_time": (0, 6, 0), "song_title": "Song 3"},
         ]
 
         assert (
@@ -67,14 +67,14 @@ def test_timestamp_extraction_when_timestamps_are_unsorted():
         timestamps = extract_timestamps("/fake/path/timestamps.txt")
 
         expected_timestamps = [
-            {"timestamp": (0, 0, 0), "song_title": "Song 1"},
-            {"timestamp": (0, 3, 0), "song_title": "Song 2"},
-            {"timestamp": (0, 6, 0), "song_title": "Song 3"},
+            {"start_time": (0, 0, 0), "song_title": "Song 1"},
+            {"start_time": (0, 3, 0), "song_title": "Song 2"},
+            {"start_time": (0, 6, 0), "song_title": "Song 3"},
         ]
 
         assert (
             timestamps == expected_timestamps
-        ), "Timestamps should be sorted by time"
+        ), "Timestamps should be sorted by start time"
         mocked_open.assert_called_with("/fake/path/timestamps.txt", "r")
 
 
@@ -90,9 +90,9 @@ def test_timestamp_extraction_when_timestamps_titles_are_missing():
         timestamps = extract_timestamps("/fake/path/timestamps.txt")
 
         expected_timestamps = [
-            {"timestamp": (0, 0, 0), "song_title": "Song 1"},
-            {"timestamp": (0, 3, 0), "song_title": "Song 2"},
-            {"timestamp": (0, 6, 0), "song_title": "Untitled Song 3"},
+            {"start_time": (0, 0, 0), "song_title": "Song 1"},
+            {"start_time": (0, 3, 0), "song_title": "Song 2"},
+            {"start_time": (0, 6, 0), "song_title": "Untitled Song 3"},
         ]
 
         assert (

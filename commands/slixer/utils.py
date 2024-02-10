@@ -14,8 +14,8 @@ def split_audio_file(audio_file_path: str, timestamps: list):
             timestamps[index + 1] if index + 1 < len(timestamps) else None
         )
 
-        next_timestamp_time_ms = time.convert_to_ms(
-            next_timestamp["timestamp"]
+        next_timestamp_start_time_ms = time.convert_to_ms(
+            next_timestamp["start_time"]
         )
 
         print(
@@ -23,16 +23,17 @@ def split_audio_file(audio_file_path: str, timestamps: list):
             f"Slicing \"{timestamp['song_title']}\""
         )
 
-        start_time = time.convert_to_ms(timestamp["timestamp"])
+        start_time = time.convert_to_ms(timestamp["start_time"])
         end_time = (
             len(audio)
-            if next_timestamp is None or next_timestamp_time_ms >= len(audio)
-            else next_timestamp_time_ms
+            if next_timestamp is None
+            or next_timestamp_start_time_ms >= len(audio)
+            else next_timestamp_start_time_ms
         )
 
         if start_time > len(audio):
             raise ValueError(
-                f"Timestamp {index}: {timestamp['song_title']}"
+                f"Start time for Timestamp {timestamp['song_title']}"
                 " exceeds audio length"
             )
 
