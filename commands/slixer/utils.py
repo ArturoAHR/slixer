@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-from utils import time
+from utils import time, file
 
 
 def split_audio_file(audio_file_path: str, timestamps: list):
@@ -35,4 +35,7 @@ def split_audio_file(audio_file_path: str, timestamps: list):
             )
 
         audio_segment = audio[start_time:end_time]
-        audio_segment.export(f"{timestamp['song_title']}.mp3", format="mp3")
+
+        file.export_audio_file(
+            audio_segment, f"{timestamp['song_title']}.mp3", "mp3"
+        )
