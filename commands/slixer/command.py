@@ -1,6 +1,7 @@
 import argparse
 from arguments import audio_file_path
 from arguments import timestamps_file_path
+from commands.slixer.utils import split_audio_file
 
 
 def slixer(args: argparse.Namespace):
@@ -14,4 +15,4 @@ def slixer(args: argparse.Namespace):
         args.timestamps_file_path
     )
 
-    audio_file_path.split_audio_file(args.audio_file_path, timestamps)
+    split_audio_file(args.audio_file_path, timestamps)
