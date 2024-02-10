@@ -7,10 +7,10 @@ def validate(timestamps_file_path: str) -> bool:
     ) and file.verify_mime_type(timestamps_file_path, prefix="text/")
 
 
-def extract_timestamps(timestamps_flle_path: str) -> list:
+def extract_timestamps(timestamps_file_path: str) -> list:
     timestamps = []
 
-    with open(timestamps_flle_path, "r") as file:
+    with open(timestamps_file_path, "r") as file:
         lines = file.readlines()
 
         for index, line in enumerate(lines):
