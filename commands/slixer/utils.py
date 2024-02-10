@@ -7,20 +7,34 @@ def split_audio_file(audio_file_path: str, timestamps: list):
 
     audio = AudioSegment.from_file(audio_file_path)
 
-    for i in range(len(timestamps)):
-        print(
-            f"({i + 1}/{len(timestamps)}) "
-            f"Slicing \"{timestamps[i]['song_title']}\""
+    for index in range(len(timestamps)):
+
+        timestamp = timestamps[index]
+        next_timestamp = (
+            timestamps[index + 1] if index + 1 < len(timestamps) else None
         )
 
-        start_time = time.convert_to_ms(timestamps[i]["timestamp"])
+        next_timestamp_time_ms = time.convert_to_ms(
+            next_timestamp["timestamp"]
+        )
+
+        print(
+            f"({index + 1}/{len(timestamps)}) "
+            f"Slicing \"{timestamp['song_title']}\""
+        )
+
+        start_time = time.convert_to_ms(timestamp["timestamp"])
         end_time = (
             len(audio)
-            if i == len(timestamps) - 1
-            else time.convert_to_ms(timestamps[i + 1]["timestamp"])
+            if next_timestamp is None or next_timestamp_time_ms >= len(audio)
+            else next_timestamp_time_ms
         )
 
+        if start_time > len(audio):
+            raise ValueError(
+                f"Timestamp {index}: {timestamp['song_title']}"
+                " exceeds audio length"
+            )
+
         audio_segment = audio[start_time:end_time]
-        audio_segment.export(
-            f"{timestamps[i]['song_title']}.mp3", format="mp3"
-        )
+        audio_segment.export(f"{timestamp['song_title']}.mp3", format="mp3")
