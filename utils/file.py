@@ -2,6 +2,25 @@ import os
 import mimetypes
 from pydub import AudioSegment
 
+supported_file_formats = [
+    "mp3",
+    "wav",
+    "aac",
+    "ogg",
+    "flac",
+    "opus",
+    "m4a",
+    "alac",
+    "wma",
+    "mp4",
+    "aiff",
+    "mka",
+    "mkv",
+    "webm",
+    "mov",
+    "avi",
+]
+
 
 def file_path_exists(file_path: str) -> bool:
     return os.path.exists(file_path)
@@ -16,5 +35,13 @@ def verify_mime_type(
     )
 
 
+def get_file_extension(file_path: str) -> str:
+    return file_path.split(".")[-1]
+
+
 def export_audio_file(audio: AudioSegment, filename: str, format: str = "mp3"):
-    audio.export(filename, format=format)
+    audio.export(f"{filename}.{format}", format=format)
+
+
+def is_file_format_supported(format: str) -> bool:
+    return format in supported_file_formats

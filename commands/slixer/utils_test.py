@@ -26,5 +26,5 @@ def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
 
     for timestamp in timestamps:
         format = "mp3"
-        expected_title = f"{timestamp['song_title']}.{format}"
+        expected_title = timestamp["song_title"]
         mock_export_audio_file.assert_any_call(ANY, expected_title, format)

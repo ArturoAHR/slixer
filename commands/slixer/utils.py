@@ -5,6 +5,11 @@ from utils import time, file
 def split_audio_file(audio_file_path: str, timestamps: list):
     print(f"Loading {audio_file_path}")
 
+    format = file.get_file_extension(audio_file_path)
+
+    if not file.is_file_format_supported(format):
+        raise ValueError(f"Unsupported file format: {format}")
+
     audio = AudioSegment.from_file(audio_file_path)
 
     for index in range(len(timestamps)):
@@ -36,6 +41,4 @@ def split_audio_file(audio_file_path: str, timestamps: list):
 
         audio_segment = audio[start_time:end_time]
 
-        file.export_audio_file(
-            audio_segment, f"{timestamp['song_title']}.mp3", "mp3"
-        )
+        file.export_audio_file(audio_segment, timestamp["song_title"], format)
