@@ -30,6 +30,8 @@ After having these two files, you can slice an audio file based on the timestamp
 
 `slixer /path/to/audio.mp3 -t /path/to/timestamps.txt`
 
+If we were to use the example timestamps, the result will be the creation of three files called `Segment A.mp3`, `Segment B.mp3` and `Segment C.mp3` in the directory that this commands was run.
+
 ## Dependencies
 
 For usage with non-wav formats such as mp3, installing ffmpeg or libav and adding them to your PATH environment variable is necessary. You can follow [pydub's guide to set ffmpeg or libav up](https://github.com/jiaaro/pydub?tab=readme-ov-file#getting-ffmpeg-set-up).
