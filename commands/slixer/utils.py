@@ -20,7 +20,7 @@ def split_audio_file(audio_file_path: str, timestamps: list):
 
         print(
             f"({index + 1}/{len(timestamps)}) "
-            f"Slicing \"{timestamp['song_title']}\""
+            f"Slicing \"{timestamp['segment_title']}\""
         )
 
         next_timestamp_start_time_ms = len(audio)
@@ -35,10 +35,12 @@ def split_audio_file(audio_file_path: str, timestamps: list):
 
         if start_time > len(audio):
             raise ValueError(
-                f"Start time for Timestamp {timestamp['song_title']}"
+                f"Start time for Timestamp {timestamp['segment_title']}"
                 " exceeds audio length"
             )
 
         audio_segment = audio[start_time:end_time]
 
-        file.export_audio_file(audio_segment, timestamp["song_title"], format)
+        file.export_audio_file(
+            audio_segment, timestamp["segment_title"], format
+        )

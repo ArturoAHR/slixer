@@ -15,8 +15,8 @@ def mock_audio_segment():
 def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
     audio_file_path = "path/fake/audio.mp3"
     timestamps = [
-        {"start_time": (0, 0, 0), "song_title": "Intro"},
-        {"start_time": (0, 1, 0), "song_title": "Verse"},
+        {"start_time": (0, 0, 0), "segment_title": "Intro"},
+        {"start_time": (0, 1, 0), "segment_title": "Verse"},
     ]
 
     split_audio_file(audio_file_path, timestamps)
@@ -26,7 +26,7 @@ def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
 
     for timestamp in timestamps:
         format = "mp3"
-        expected_title = timestamp["song_title"]
+        expected_title = timestamp["segment_title"]
         mock_export_audio_file.assert_any_call(ANY, expected_title, format)
 
 
@@ -37,9 +37,9 @@ def test_audio_file_splitting_when_timestamp_exceeds_audio_length(
 ):
     audio_file_path = "path/fake/audio.mp3"
     timestamps = [
-        {"start_time": (0, 0, 0), "song_title": "Intro"},
-        {"start_time": (0, 1, 0), "song_title": "Verse"},
-        {"start_time": (0, 3, 0), "song_title": "Beyond audio length"},
+        {"start_time": (0, 0, 0), "segment_title": "Intro"},
+        {"start_time": (0, 1, 0), "segment_title": "Verse"},
+        {"start_time": (0, 3, 0), "segment_title": "Beyond audio length"},
     ]
 
     with pytest.raises(ValueError) as context:
@@ -55,7 +55,7 @@ def test_audio_file_splitting_when_timestamp_exceeds_audio_length(
 
     for timestamp in timestamps[:2]:
         format = "mp3"
-        expected_title = timestamp["song_title"]
+        expected_title = timestamp["segment_title"]
         mock_export_audio_file.assert_any_call(ANY, expected_title, format)
 
 
@@ -65,8 +65,8 @@ def test_audio_file_splitting_when_file_format_is_not_supported(
 ):
     audio_file_path = "path/fake/audio.txt"
     timestamps = [
-        {"start_time": (0, 0, 0), "song_title": "Intro"},
-        {"start_time": (0, 1, 0), "song_title": "Verse"},
+        {"start_time": (0, 0, 0), "segment_title": "Intro"},
+        {"start_time": (0, 1, 0), "segment_title": "Verse"},
     ]
 
     with pytest.raises(ValueError) as context:

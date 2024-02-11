@@ -17,10 +17,10 @@ def extract_timestamps(timestamps_file_path: str) -> list:
             timestamp_parts = line.split(" ", 1)
 
             timestamp = timestamp_parts[0]
-            song_title = f"Untitled Song {index + 1}"
+            segment_title = f"Untitled Segment {index + 1}"
 
             if len(timestamp_parts) > 1:
-                song_title = timestamp_parts[1].strip()
+                segment_title = timestamp_parts[1].strip()
 
             timestamp_splitted = timestamp.split(":")
 
@@ -36,7 +36,7 @@ def extract_timestamps(timestamps_file_path: str) -> list:
             timestamps.append(
                 {
                     "start_time": (hours, minutes, seconds),
-                    "song_title": song_title,
+                    "segment_title": segment_title,
                 }
             )
 
