@@ -31,6 +31,35 @@ def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
 
 
 @patch("utils.file.export_audio_file")
+def test_audio_file_splitting_when_timestamp_exceeds_audio_length(
+    mock_export_audio_file,
+    mock_audio_segment,
+):
+    audio_file_path = "path/fake/audio.mp3"
+    timestamps = [
+        {"start_time": (0, 0, 0), "song_title": "Intro"},
+        {"start_time": (0, 1, 0), "song_title": "Verse"},
+        {"start_time": (0, 3, 0), "song_title": "Beyond audio length"},
+    ]
+
+    with pytest.raises(ValueError) as context:
+        split_audio_file(audio_file_path, timestamps)
+
+    assert (
+        "Start time for Timestamp Beyond audio length exceeds audio length"
+        in str(context.value)
+    )
+
+    mock_audio_segment.assert_called_with(audio_file_path)
+    assert mock_export_audio_file.call_count == 2
+
+    for timestamp in timestamps[:2]:
+        format = "mp3"
+        expected_title = timestamp["song_title"]
+        mock_export_audio_file.assert_any_call(ANY, expected_title, format)
+
+
+@patch("utils.file.export_audio_file")
 def test_audio_file_splitting_when_file_format_is_not_supported(
     mock_audio_segment,
 ):
