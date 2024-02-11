@@ -7,7 +7,6 @@ def main():
         prog="slixer",
         description="A terminal audio file slicer that works by timestamps",
     )
-    parser.set_defaults(func=slixer)
 
     parser.add_argument("audio_file_path", help="Path to audio file")
     parser.add_argument(
@@ -17,6 +16,8 @@ def main():
         help="Path to text file with timestamps",
         required=True,
     )
+
+    parser.set_defaults(func=slixer)
 
     args = parser.parse_args()
 
