@@ -1,14 +1,14 @@
 import pytest
-from unittest.mock import patch, ANY
+from unittest.mock import patch, ANY, MagicMock
 from commands.slixer.utils import split_audio_file
 
 
 @pytest.fixture
-def mock_audio_segment(mocker):
-    mock_audio = mocker.MagicMock()
-    mocker.patch("pydub.AudioSegment.from_file", return_value=mock_audio)
-    mock_audio.__len__.return_value = 120000
-    return mock_audio
+def mock_audio_segment():
+    with patch("pydub.AudioSegment.from_file") as mock:
+        mock.return_value = MagicMock()
+        mock.return_value.__len__.return_value = 120000
+        yield mock
 
 
 @patch("utils.file.export_audio_file")
@@ -21,7 +21,7 @@ def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
 
     split_audio_file(audio_file_path, timestamps)
 
-    assert mock_audio_segment.from_file.called_with(audio_file_path)
+    mock_audio_segment.assert_called_with(audio_file_path)
     assert mock_export_audio_file.call_count == len(timestamps)
 
     for timestamp in timestamps:
@@ -32,7 +32,7 @@ def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
 
 @patch("utils.file.export_audio_file")
 def test_audio_file_splitting_when_file_format_is_not_supported(
-    mock_export_audio_file, mock_audio_segment
+    mock_audio_segment,
 ):
     audio_file_path = "path/fake/audio.txt"
     timestamps = [
@@ -44,4 +44,4 @@ def test_audio_file_splitting_when_file_format_is_not_supported(
         split_audio_file(audio_file_path, timestamps)
 
     assert "Unsupported file format: txt" in str(context.value)
-    mock_audio_segment.from_file.assert_not_called()
+    mock_audio_segment.assert_not_called()
