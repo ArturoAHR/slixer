@@ -74,3 +74,34 @@ def test_audio_file_splitting_when_file_format_is_not_supported(
 
     assert "Unsupported file format: txt" in str(context.value)
     mock_audio_segment.assert_not_called()
+
+
+@patch("utils.file.export_audio_file")
+def test_audio_file_splitting_when_there_are_invalid_file_characters(
+    mock_export_audio_file, mock_audio_segment
+):
+    audio_file_path = "path/fake/audio.mp3"
+    timestamps = [
+        {
+            "start_time": (0, 0, 0),
+            "segment_title": 'Invalid title one \\/"*?<>|',
+        },
+        {
+            "start_time": (0, 1, 0),
+            "segment_title": '\\/"*?<>| Invalid title two',
+        },
+    ]
+
+    expected_titles = [
+        "Invalid title one ________",
+        "________ Invalid title two",
+    ]
+
+    split_audio_file(audio_file_path, timestamps)
+
+    mock_audio_segment.assert_called_with(audio_file_path)
+    assert mock_export_audio_file.call_count == len(timestamps)
+
+    for expected_title in expected_titles:
+        format = "mp3"
+        mock_export_audio_file.assert_any_call(ANY, expected_title, format)
