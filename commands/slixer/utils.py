@@ -41,6 +41,10 @@ def split_audio_file(audio_file_path: str, timestamps: list):
 
         audio_segment = audio[start_time:end_time]
 
+        segment_file_name = file.get_file_name(timestamp["segment_title"])
+
         file.export_audio_file(
-            audio_segment, timestamp["segment_title"], format
+            audio_segment,
+            segment_file_name,
+            format,
         )

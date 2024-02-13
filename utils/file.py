@@ -2,6 +2,7 @@ import os
 import mimetypes
 from pydub import AudioSegment
 
+invalid_file_name_characters = ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]
 supported_file_formats = [
     "mp3",
     "wav",
@@ -45,3 +46,9 @@ def export_audio_file(audio: AudioSegment, filename: str, format: str = "mp3"):
 
 def is_file_format_supported(format: str) -> bool:
     return format in supported_file_formats
+
+
+def get_file_name(segment_title: str) -> str:
+    for character in invalid_file_name_characters:
+        segment_title = segment_title.replace(character, "_")
+    return segment_title
