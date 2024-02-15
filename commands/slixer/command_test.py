@@ -37,6 +37,10 @@ def test_slixer(
     mock_timestamps_file_path_extract_timestamps,
     mock_slixer_utils_split_audio_file,
 ):
+    """
+    Correctly calls all necessary validations and audio splitting functions
+    """
+
     args = argparse.Namespace()
     args.audio_file_path = "/path/to/audio.mp3"
     args.timestamps_file_path = "/path/to/timestamps.txt"
@@ -52,6 +56,11 @@ def test_slixer(
 def test_slixer_when_audio_file_is_invalid(
     mock_audio_file_path_validate,
 ):
+    """
+    Correctly raises an error when the given audio file does not pass
+    validations
+    """
+
     mock_audio_file_path_validate.return_value = False
 
     args = argparse.Namespace()
@@ -68,6 +77,11 @@ def test_slixer_when_timestamps_file_is_invalid(
     mock_audio_file_path_validate,
     mock_timestamps_file_path_validate,
 ):
+    """
+    Correctly raises an error when the given timestamps file does not pass
+    validations
+    """
+
     mock_timestamps_file_path_validate.return_value = False
 
     args = argparse.Namespace()
