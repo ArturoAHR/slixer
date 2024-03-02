@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from arguments.audio_file_path import validate
+from arguments.audio_file_path.audio_file_path import validate
 
 
 @patch("utils.file.verify_mime_type", return_value=True)

@@ -1,6 +1,6 @@
 import argparse
-from arguments import audio_file_path
-from arguments import timestamps_file_path
+from arguments.audio_file_path import audio_file_path
+from arguments.timestamps_file_path import timestamps_file_path
 from commands.slixer.utils import split_audio_file
 
 

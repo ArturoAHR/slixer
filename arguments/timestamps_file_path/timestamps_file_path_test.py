@@ -1,5 +1,8 @@
 from unittest.mock import mock_open, patch
-from arguments.timestamps_file_path import validate, extract_timestamps
+from arguments.timestamps_file_path.timestamps_file_path import (
+    validate,
+    extract_timestamps,
+)
 
 
 @patch("utils.file.verify_mime_type", return_value=True)
