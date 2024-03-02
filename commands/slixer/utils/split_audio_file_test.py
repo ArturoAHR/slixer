@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, ANY, MagicMock
-from commands.slixer.utils import split_audio_file
+from commands.slixer.utils.split_audio_file import split_audio_file
 
 
 @pytest.fixture
