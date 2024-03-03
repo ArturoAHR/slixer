@@ -4,6 +4,11 @@ from main import main
 
 @patch("main.slixer")
 def test_slixer_command(mock_slixer):
+    """
+    Correctly calls the slixer command function with correctly specified
+    arguments
+    """
+
     test_args = [
         "slixer",
         "/path/to/audio.mp3",

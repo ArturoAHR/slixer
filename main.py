@@ -1,5 +1,5 @@
 import argparse
-from commands.slixer.command import slixer
+from commands.slixer.slixer import slixer
 
 
 def main():

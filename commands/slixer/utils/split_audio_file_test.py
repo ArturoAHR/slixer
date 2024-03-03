@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, ANY, MagicMock
-from commands.slixer.utils import split_audio_file
+from commands.slixer.utils.split_audio_file import split_audio_file
 
 
 @pytest.fixture
@@ -13,6 +13,10 @@ def mock_audio_segment():
 
 @patch("utils.file.export_audio_file")
 def test_audio_file_splitting(mock_export_audio_file, mock_audio_segment):
+    """
+    Splits audio file correctly into segments based on the given timestamps
+    """
+
     audio_file_path = "path/fake/audio.mp3"
     timestamps = [
         {"start_time": (0, 0, 0), "segment_title": "Intro"},
@@ -35,6 +39,11 @@ def test_audio_file_splitting_when_timestamp_exceeds_audio_length(
     mock_export_audio_file,
     mock_audio_segment,
 ):
+    """
+    Splits audio file correctly and stops when a timestamp exceeds the audio
+    length and raises an error
+    """
+
     audio_file_path = "path/fake/audio.mp3"
     timestamps = [
         {"start_time": (0, 0, 0), "segment_title": "Intro"},
@@ -63,6 +72,10 @@ def test_audio_file_splitting_when_timestamp_exceeds_audio_length(
 def test_audio_file_splitting_when_file_format_is_not_supported(
     mock_audio_segment,
 ):
+    """
+    Raises an error when the audio file format is not supported
+    """
+
     audio_file_path = "path/fake/audio.txt"
     timestamps = [
         {"start_time": (0, 0, 0), "segment_title": "Intro"},
@@ -80,6 +93,11 @@ def test_audio_file_splitting_when_file_format_is_not_supported(
 def test_audio_file_splitting_when_there_are_invalid_file_characters(
     mock_export_audio_file, mock_audio_segment
 ):
+    """
+    Splits audio file correctly and replaces invalid file name characters
+    with underscores
+    """
+
     audio_file_path = "path/fake/audio.mp3"
     timestamps = [
         {
