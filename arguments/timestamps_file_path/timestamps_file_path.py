@@ -1,4 +1,7 @@
 from utils import file, time
+from arguments.timestamps_file_path.utils.extract_timestamp_start_time import (
+    extract_timestamp_start_time,
+)
 
 
 def validate(timestamps_file_path: str) -> bool:
@@ -16,26 +19,16 @@ def extract_timestamps(timestamps_file_path: str) -> list:
         for index, line in enumerate(lines):
             timestamp_parts = line.split(" ", 1)
 
-            timestamp = timestamp_parts[0]
             segment_title = f"Untitled Segment {index + 1}"
 
             if len(timestamp_parts) > 1:
                 segment_title = timestamp_parts[1].strip()
 
-            timestamp_splitted = timestamp.split(":")
-
-            hours = 0
-            minutes = int(timestamp_splitted[0])
-            seconds = int(timestamp_splitted[1])
-
-            if len(timestamp_splitted) == 3:
-                hours = int(timestamp_splitted[0])
-                minutes = int(timestamp_splitted[1])
-                seconds = int(timestamp_splitted[2])
+            start_time = extract_timestamp_start_time(line)
 
             timestamps.append(
                 {
-                    "start_time": (hours, minutes, seconds),
+                    "start_time": start_time,
                     "segment_title": segment_title,
                 }
             )
