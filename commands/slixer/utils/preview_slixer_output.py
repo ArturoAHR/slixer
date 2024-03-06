@@ -22,6 +22,7 @@ def preview_slixer_output(timestamps: list):
             break
         elif user_input == "n":
             print("Aborting...")
-            exit()
+            return exit()
+
         else:
             print("Invalid input. Please enter 'y' or 'n'.")
