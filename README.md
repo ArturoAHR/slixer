@@ -4,27 +4,15 @@ A terminal audio file slicer that works by timestamps.
 
 ## Usage
 
-To use slixer you will need an audio file and a text file with timestamps, the timestamps must follow the following format:
+To use slixer you will need an audio file and a text file with timestamps, the timestamps must have a timestamp in the hh:mm:ss or mm:ss format at the start or the end of each line and the title beside it, so for example:
 
 ```
-<hh:mm:ss or mm:ss> <Audio segment title>
+00:00:00 Segment 1
+Segment 2 [00:20]
+(00:01:00) - Segment 3
 ```
 
-For example:
-
-```
-0:00:00 Segment A
-0:01:00 Segment B
-0:02:30 Segment C
-```
-
-or
-
-```
-00:00 Segment A
-01:00 Segment B
-02:30 Segment C
-```
+Are all valid timestamps, you can preview how the timestamps are being set using the `-p` and `--preview` flags.
 
 After having these two files, you can slice an audio file based on the timestamps in the following manner.
 
