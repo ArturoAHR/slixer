@@ -16,6 +16,13 @@ def main():
         help="Path to text file with timestamps",
         required=True,
     )
+    parser.add_argument(
+        "-p",
+        "--preview",
+        dest="preview",
+        action="store_true",
+        help="Preview the output before slicing.",
+    )
 
     parser.set_defaults(func=slixer)
 
