@@ -1,5 +1,5 @@
 import argparse
-from commands.slixer.command import slixer
+from commands.slixer.slixer import slixer
 
 
 def main():
@@ -15,6 +15,13 @@ def main():
         dest="timestamps_file_path",
         help="Path to text file with timestamps",
         required=True,
+    )
+    parser.add_argument(
+        "-p",
+        "--preview",
+        dest="preview",
+        action="store_true",
+        help="Preview the output before slicing.",
     )
 
     parser.set_defaults(func=slixer)
