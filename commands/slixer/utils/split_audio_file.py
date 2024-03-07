@@ -1,16 +1,17 @@
 from pydub import AudioSegment
+from argparse import Namespace
 from utils import time, file
 
 
-def split_audio_file(audio_file_path: str, timestamps: list):
-    print(f"Loading {audio_file_path}")
+def split_audio_file(args: Namespace, timestamps: list):
+    print(f"Loading {args.audio_file_path}")
 
-    format = file.get_file_extension(audio_file_path)
+    format = file.get_file_extension(args.audio_file_path)
 
     if not file.is_file_format_supported(format):
         raise ValueError(f"Unsupported file format: {format}")
 
-    audio = AudioSegment.from_file(audio_file_path)
+    audio = AudioSegment.from_file(args.audio_file_path)
 
     for index in range(len(timestamps)):
         timestamp = timestamps[index]
@@ -43,8 +44,10 @@ def split_audio_file(audio_file_path: str, timestamps: list):
 
         segment_file_name = file.get_file_name(timestamp["segment_title"])
 
-        file.export_audio_file(
-            audio_segment,
-            segment_file_name,
-            format,
-        )
+        tags = None
+        if hasattr(args, "artist"):
+            tags = {
+                "artist": args.artist,
+            }
+
+        file.export_audio_file(audio_segment, segment_file_name, format, tags)

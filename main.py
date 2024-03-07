@@ -23,6 +23,12 @@ def main():
         action="store_true",
         help="Preview the output before slicing.",
     )
+    parser.add_argument(
+        "-a",
+        "--artist",
+        dest="artist",
+        help="Artist name to be added as metadata to the output files.",
+    )
 
     parser.set_defaults(func=slixer)
 
