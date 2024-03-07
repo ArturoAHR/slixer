@@ -40,8 +40,10 @@ def get_file_extension(file_path: str) -> str:
     return file_path.split(".")[-1]
 
 
-def export_audio_file(audio: AudioSegment, filename: str, format: str = "mp3"):
-    audio.export(f"{filename}.{format}", format=format)
+def export_audio_file(
+    audio: AudioSegment, filename: str, format: str = "mp3", tags: dict = None
+):
+    audio.export(f"{filename}.{format}", format=format, tags=tags)
 
 
 def is_file_format_supported(format: str) -> bool:
