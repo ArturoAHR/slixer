@@ -19,4 +19,4 @@ def slixer(args: argparse.Namespace):
     if args.preview:
         preview_slixer_output(timestamps)
 
-    split_audio_file(args.audio_file_path, timestamps)
+    split_audio_file(args, timestamps)

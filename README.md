@@ -12,13 +12,15 @@ Segment 2 [00:20]
 (00:01:00) - Segment 3
 ```
 
-Are all valid timestamps, you can preview how the timestamps are being set using the `-p` and `--preview` flags.
+Are all valid timestamps, you can preview how the timestamps are being set using the `-p` or `--preview` flags.
 
 After having these two files, you can slice an audio file based on the timestamps in the following manner.
 
 `slixer /path/to/audio.mp3 -t /path/to/timestamps.txt`
 
 If we were to use the example timestamps, the result will be the creation of three files called `Segment A.mp3`, `Segment B.mp3` and `Segment C.mp3` in the directory that this commands was run.
+
+To set the artist tag of all the produced files use the `-a` or `--artist` tags.
 
 ## Dependencies
 
